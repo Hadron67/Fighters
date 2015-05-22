@@ -1,0 +1,13 @@
+#ifndef PLANE_HPP
+#define PLANE_HPP
+#include<SFML/Graphics.hpp>
+class Fighter:public sf::CircleShape{
+	private :
+		double x,y,life;
+		int group;
+	public:
+		Plane(int group);
+		~Plane();
+			
+};
+#endif

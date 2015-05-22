@@ -1,0 +1,8 @@
+#ifndef WINDOW_MAIN_HPP
+#define WINDOW_MAIN_HPP
+#include<SFML/Graphics.hpp>
+class MainWindow:public sf::RenderWindow{
+	public:
+		MainWindow():RenderWindow(sf::VideoMode(200,200),"Test");
+};
+#endif

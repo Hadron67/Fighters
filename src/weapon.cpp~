@@ -1,0 +1,10 @@
+#include "weapon.hpp"
+Weapon::Weapon(){
+	
+}
+Weapon::~Weapon(){
+	
+}
+void Weapon::UseWeapon(){
+	
+}
