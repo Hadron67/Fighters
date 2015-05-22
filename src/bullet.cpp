@@ -16,13 +16,17 @@ static double arctan(double x,double y){
 		return 2*PI+theta;
 	}
 }
+sf::Texture* Bullet::tex=NULL;
 Bullet::Bullet(struct bullet_Properties* b){
 	this->x=this->y=0;
 	this->height=b->height;
 	this->width=b->width;
 	this->life_kill=b->life_kill;
-	this->tex.loadFromFile(RES_DIR "/img/shoot.png");
-	this->setTexture(this->tex);
+	if(Bullet::tex==NULL){
+		Bullet::tex=new sf::Texture();
+		Bullet::tex->loadFromFile(RES_DIR "/img/shoot.png");
+	}
+	this->setTexture(*Bullet::tex);
 	this->setTextureRect(sf::IntRect( b->x0, b->y0, b->width,  b->height));
 	//for hitTest
 	this->initVertices();

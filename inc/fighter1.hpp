@@ -21,5 +21,6 @@ class Fighter1:public Fighter{
 		Fighter1* setWeaponType(WeaponType wt);
 		virtual void destroy();
 		virtual void react(double dt);
+		virtual void ffire(WeaponInterface* wi);
 };
 #endif

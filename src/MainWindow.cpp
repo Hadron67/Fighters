@@ -6,6 +6,7 @@ MainWindow::MainWindow():RenderWindow(VideoMode(450,600),"Experiment"),GameScene
 	if(texture->loadFromFile(RES_DIR "img/background.png")){
 		this->sp_bg.setTexture(*texture);
 	}
+	this->keystate=0;
 }
 MainWindow::~MainWindow(){
 	delete this->sp_bg.getTexture();
@@ -17,6 +18,16 @@ void MainWindow::MainLoop(){
 		while(this->pollEvent(event)){
 			if(event.type==Event::Closed){
 				this->close();
+			}
+			if(event.type==Event::KeyPressed){
+				if(event.key.code==sf::Keyboard::Return){
+					if(this->ispaused()){
+						this->resume();
+					}
+					else{
+						this->pause();
+					}
+				}
 			}
 		}
 		double t=clock.restart().asSeconds()*100;
@@ -46,4 +57,5 @@ void MainWindow::check_operates(double dt){
 	if(Keyboard::isKeyPressed(Keyboard::Space)){
 		this->player1_fire();
 	}
+	
 }

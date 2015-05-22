@@ -24,7 +24,7 @@ class Fighter:public sf::Sprite,public HitTestable{
 		double destroy_interval_time;
 		int group;
 		int destroyed;
-		sf::Texture tex;
+		static sf::Texture* tex;
 		sf::Clock clock;
 		sf::Clock clock_destroy;
 		int checkDestroying();
@@ -58,8 +58,10 @@ class Fighter:public sf::Sprite,public HitTestable{
 		void AcellarateY(float r);
 		void Stop();
 		int isDestroyed();
+		void fire(WeaponInterface* wi);
 		virtual void destroy();
-		virtual void fire(WeaponInterface* wi);//firing more than one bullets
+		virtual void ffire(WeaponInterface* wi);//firing more than one bullets
+		
 		virtual void AimAndFire(Fighter* target,WeaponInterface* wi); //for Enemies
 		virtual void react(double dt);
 		virtual void hit(Bullet* b);

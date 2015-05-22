@@ -10,7 +10,7 @@ class MainWindow:public sf::RenderWindow,public GameScene {
 		~MainWindow();
 		void MainLoop();
 	private:
-		
+		int keystate;
 		sf::Sprite sp_bg;
 		void check_operates(double dt);
 };

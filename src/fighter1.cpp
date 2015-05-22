@@ -23,3 +23,6 @@ void Fighter1::destroy(){
 	//TODO:add destroying animation
 	this->Fighter::destroy();
 }
+void Fighter1::ffire(WeaponInterface* wi){
+	this->Fighter::ffire(wi);
+}

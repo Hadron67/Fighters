@@ -23,7 +23,7 @@ void Enemy3::react(double dt){
 void Enemy3::AimAndFire(Fighter* target,WeaponInterface* wi){
 	if(this->clock_fire.getElapsedTime().asSeconds()>this->bullet_t){
 		this->clock_fire.restart();
-		/*Bullet* b1=new Bullet(2);
+		Bullet* b1=new Bullet(2);
 		Bullet* b2=new Bullet(2);
 		Bullet* b3=new Bullet(2);
 		Bullet* b4=new Bullet(2);
@@ -35,10 +35,10 @@ void Enemy3::AimAndFire(Fighter* target,WeaponInterface* wi){
 		b4->setVelocity(-this->bullet_v,0);
 		b2->setVelocity(this->bullet_v/1.414,this->bullet_v/1.414);
 		b3->setVelocity(-this->bullet_v/1.414,this->bullet_v/1.414);
-		bullets.push_back(b1);
-		bullets.push_back(b2);
-		bullets.push_back(b3);
-		bullets.push_back(b4);*/
+		wi->FireBullet_e(b1);
+		wi->FireBullet_e(b2);
+		wi->FireBullet_e(b3);
+		wi->FireBullet_e(b4);
 		
 	}
 }

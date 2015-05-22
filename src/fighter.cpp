@@ -1,6 +1,7 @@
 #include "fighter.hpp"
 #include <math.h>
 #include<iostream>
+sf::Texture* Fighter::tex=NULL;
 Fighter::Fighter(int group,double x=0,double y=0,double height=10,double width=10,double ax=0.1,double ay=0.1,double bullet_v=2,int which=1){
 	
 	sf::RectangleShape(sf::Vector2f(width, height));
@@ -11,8 +12,11 @@ Fighter::Fighter(int group,double x=0,double y=0,double height=10,double width=1
 	this->width=width;
 	this->ax=ax;
 	this->ay=ay;
-	this->tex.loadFromFile(RES_DIR "/img/shoot.png");
-	this->setTexture(this->tex);
+	if(Fighter::tex==NULL){
+		Fighter::tex=new sf::Texture();
+		Fighter::tex->loadFromFile(RES_DIR "/img/shoot.png");
+	}
+	this->setTexture(*Fighter::tex);
 	this->setTextureRect(sf::IntRect(0, 100,width, height));
 	this->destroyed=0;
 	this->killed=0;
@@ -33,8 +37,11 @@ Fighter::Fighter(struct fighter_Properties* p){
 	this->ax= p->ax;
 	this->ay= p->ay;
 	this->bullet_v=p->bullet_v;
-	this->tex.loadFromFile(RES_DIR "/img/shoot.png");
-	this->setTexture(this->tex);
+	if(Fighter::tex==NULL){
+		Fighter::tex=new sf::Texture();
+		Fighter::tex->loadFromFile(RES_DIR "/img/shoot.png");
+	}
+	this->setTexture(*Fighter::tex);
 	this->setTextureRect(sf::IntRect( p->x0[0], p->y0[0], p->width,  p->height));
 	this->initVertices();
 	this->destroyed=0;
@@ -129,13 +136,16 @@ int Fighter::checkDestroying(){
 }
 void Fighter::fire(WeaponInterface* wi){
 	if(this->clock_fire.getElapsedTime().asSeconds()>this->bullet_t){
-		this->clock_fire.restart();
-		Bullet* b=new Bullet(2);
-		b->setVelocity(this->vx,this->vy-this->bullet_v);
-		b->moveTo(this->x,this->y);
-		wi->FireBullet(b);
+		this->ffire(wi);
 	}
 	
+}
+void Fighter::ffire(WeaponInterface* wi){
+	this->clock_fire.restart();
+	Bullet* b=new Bullet(2);
+	b->setVelocity(this->vx,this->vy-this->bullet_v);
+	b->moveTo(this->x,this->y);
+	wi->FireBullet(b);
 }
 void Fighter::hit(Bullet* b){
 	this->life-=b->getLifeKill();

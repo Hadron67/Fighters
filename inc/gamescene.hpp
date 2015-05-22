@@ -3,7 +3,6 @@
 #define GAMESCENE_HPP
 #include<vector>
 #include<math.h>
-class MainWindow;
 #include "weaponinterface.hpp"
 #include "fighter.hpp"
 #include "bullet.hpp"
@@ -20,15 +19,23 @@ class GameScene:public WeaponInterface{
 		Fighter1* player;
 		 //when object goes out of screen
 		sf::Clock clock_player;
+		sf::Text text_score;
+		sf::Text text_pause;
+		sf::Sprite sprite_pause;
+		static sf::Font* font;
 		void add_enemy();
 		void fire_enemy();
 		void check_ranges();
 		void check_hits();
+		int paused;
+		long score;
+		void draw_score(sf::RenderWindow* window);
 	public:
 		GameScene(double width,double height);
 		virtual ~GameScene();
 		Fighter* getPlayer(){return this->player;}
 		std::vector<Bullet*>& getBullets(){return this->bullets;}
+		int ispaused(){return this->paused;}
 		void react(double dt);
 		void player1_move_left(double dt);
 		void player1_move_right(double dt);
@@ -36,6 +43,8 @@ class GameScene:public WeaponInterface{
 		void player1_move_down(double dt);
 		void player1_stop();
 		void player1_fire();
+		void pause();
+		void resume();
 		void DrawObjs(sf::RenderWindow* window);
 		//implementations
 		void FireBullet(Bullet* b);
