@@ -1,6 +1,6 @@
 #include "fighter1.hpp"
 Fighter1::Fighter1():Fighter(1)/*Player*/{
-	
+	this->initVertices();
 }
 Fighter1::~Fighter1(){
 	
@@ -25,4 +25,10 @@ void Fighter1::destroy(){
 }
 void Fighter1::ffire(WeaponInterface* wi){
 	this->Fighter::ffire(wi);
+}
+void Fighter1::initVertices(){
+	this->clearVertices();
+	this->addVertex(0,-this->height*3/8);
+	this->addVertex(-this->width/2,this->height/5);
+	this->addVertex(this->width/2,this->height/5);
 }

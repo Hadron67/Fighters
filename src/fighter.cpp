@@ -90,6 +90,9 @@ void Fighter::moveTo(double x,double y){
 	this->moveto(this->x,this->y);
 	this->setPosition(this->x-this->width/2,this->y-this->height/2);
 }
+int Fighter::isKilled(){
+	return this->killed;
+}
 double Fighter::getax(){
 	return this->ax;
 }
@@ -117,6 +120,9 @@ void Fighter::AcellarateY(float r){
 void Fighter::Stop(){
 	this->cax=this->cay=0;
 }
+int Fighter::getLife(){
+	return this->life;
+}
 void Fighter::react(double dt){
 	this->checkDestroying();
 	this->vx+=this->cax*dt;
@@ -142,7 +148,7 @@ void Fighter::fire(WeaponInterface* wi){
 }
 void Fighter::ffire(WeaponInterface* wi){
 	this->clock_fire.restart();
-	Bullet* b=new Bullet(2);
+	Bullet* b=new Bullet(1);
 	b->setVelocity(this->vx,this->vy-this->bullet_v);
 	b->moveTo(this->x,this->y);
 	wi->FireBullet(b);
@@ -161,7 +167,7 @@ int Fighter::isDestroyed(){
 void Fighter::AimAndFire(Fighter* target,WeaponInterface* wi){
 	if(this->clock_fire.getElapsedTime().asSeconds()>this->bullet_t){
 		this->clock_fire.restart();
-		Bullet* b=new Bullet(1);
+		Bullet* b=new Bullet(2);
 		b->moveTo(this->x,this->y);
 		double d=sqrt((target->x-this->x)*(target->x-this->x)+(target->y-this->y)*(target->y-this->y));
 		b->setVelocity((target->x-this->x)/d*this->bullet_v,(target->y-this->y)/d*this->bullet_v);

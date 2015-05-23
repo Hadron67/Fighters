@@ -22,5 +22,6 @@ class Fighter1:public Fighter{
 		virtual void destroy();
 		virtual void react(double dt);
 		virtual void ffire(WeaponInterface* wi);
+		virtual void initVertices();
 };
 #endif

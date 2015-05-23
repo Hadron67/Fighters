@@ -2,7 +2,19 @@
 #include<math.h>
 #define PI 3.1415926
 Enemy3::Enemy3():Fighter(4){
-	
+	this->clearVertices();
+	this->addVertex(-this->width*3/8,-this->height/2);
+	this->addVertex(-this->width*5/16,-this->height/2);
+	this->addVertex(-this->width*5/16,-this->height/8);
+	this->addVertex(-this->width*5/16,this->height/8);
+	this->addVertex(-this->width*5/16,-this->height/2);
+	this->addVertex(this->width*3/8,-this->height/2);
+	this->addVertex(this->width*3/8,this->height/6);
+	this->addVertex(this->width/2,this->height/4);
+	this->addVertex(this->width/8,this->height*7/16);
+	this->addVertex(-this->width/8,this->height*7/16);
+	this->addVertex(-this->width/2,this->height/4);
+	this->addVertex(-this->width*3/8,this->height/6);
 }
 Enemy3::~Enemy3(){
 	
@@ -22,6 +34,7 @@ void Enemy3::react(double dt){
 }
 void Enemy3::AimAndFire(Fighter* target,WeaponInterface* wi){
 	if(this->clock_fire.getElapsedTime().asSeconds()>this->bullet_t){
+		this->Fighter::AimAndFire(target,wi);
 		this->clock_fire.restart();
 		Bullet* b1=new Bullet(2);
 		Bullet* b2=new Bullet(2);

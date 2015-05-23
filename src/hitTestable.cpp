@@ -29,6 +29,13 @@ void HitTestable::moveto(double x,double y){
 void HitTestable::rotateto(double r){
 	this->rotation=r;
 }
+void HitTestable::clearVertices(){
+	this->moveto(0,0);
+	this->rotateto(0);
+	this->vertx.clear();
+	this->verty.clear();
+	this->verticescount=0;
+}
 int HitTestable::hitTest(HitTestable* MovieClip){
 	int i,j;
 	for(i=0;i<this->verticescount;i++){

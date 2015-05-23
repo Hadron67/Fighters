@@ -21,6 +21,7 @@ class GameScene:public WeaponInterface{
 		sf::Clock clock_player;
 		sf::Text text_score;
 		sf::Text text_pause;
+		sf::Text text_life;
 		sf::Sprite sprite_pause;
 		static sf::Font* font;
 		void add_enemy();
@@ -29,7 +30,7 @@ class GameScene:public WeaponInterface{
 		void check_hits();
 		int paused;
 		long score;
-		void draw_score(sf::RenderWindow* window);
+		void draw_text(sf::RenderWindow* window);
 	public:
 		GameScene(double width,double height);
 		virtual ~GameScene();

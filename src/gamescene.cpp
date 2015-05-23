@@ -1,5 +1,6 @@
 #include "gamescene.hpp"
 #include <sstream>
+#include <string>
 sf::Font* GameScene::font=NULL;
 GameScene::GameScene(double width,double height){
 	this->height=height;
@@ -10,7 +11,7 @@ GameScene::GameScene(double width,double height){
 	this->paused=0;
 	if(GameScene::font==NULL){
 		GameScene::font=new sf::Font();
-		GameScene::font->loadFromFile(RES_DIR "/fonts/UbuntuMono-R.ttf");
+		GameScene::font->loadFromFile(RES_DIR "/fonts/UbuntuMono-RI.ttf");
 	}
 	this->text_score.setFont(*GameScene::font);
 	this->text_score.setString("test");
@@ -21,7 +22,13 @@ GameScene::GameScene(double width,double height){
 	this->text_pause.setString("--Game Paused--");
 	this->text_pause.setCharacterSize(40);
 	this->text_pause.setColor(sf::Color::Blue);
-	this->text_pause.setPosition(0,this->width/2);
+	this->text_pause.setPosition(this->width/8,this->height/2);
+	
+	this->text_life.setFont(*GameScene::font);
+	this->text_life.setString("1");
+	this->text_life.setCharacterSize(40);
+	this->text_life.setColor(sf::Color::Red);
+	this->text_life.setPosition(this->width*5/8,0);
 	//this->text_score.setStyle(sf::Text::Bold | sf::Text::Underlined);
 }
 GameScene::~GameScene(){
@@ -51,6 +58,7 @@ void GameScene::check_hits(){
 		for(int j=this->fighters.size()-1;j>=0;j--){
 			if(this->bullets[i]->hitTest(this->fighters[j])){
 				//std::cout<<"it works!"<<std::endl;
+				if(!this->fighters[j]->isKilled()) this->score++;
 				this->fighters[j]->hit(this->bullets[i]);
 				delete this->bullets[i];
 				this->bullets.erase(this->bullets.begin()+i);
@@ -112,9 +120,6 @@ void GameScene::check_ranges(){
 		}
 	}
 	for(int i=this->fighters.size()-1;i>=0;i--){
-		if(this->fighters[i]->isDestroyed()){
-			this->score++;
-		}
 		if(this->fighters[i]->x>this->width+this->fighters[i]->width/2 || this->fighters[i]->x<-this->fighters[i]->width/2 || this->fighters[i]->y<-this->fighters[i]->height/2 ||this->fighters[i]->y>this->height+this->fighters[i]->height/2||this->fighters[i]->isDestroyed()){
 			delete this->fighters[i];
 			this->fighters.erase(this->fighters.begin()+i);
@@ -164,6 +169,19 @@ void GameScene::FireBullet_e(Bullet* b){
 	this->bullets_e.push_back(b);
 }
 void GameScene::DrawObjs(sf::RenderWindow* window){
+	
+	//vertices test----------------------------------------
+	/*for(int i=this->bullets_e.size()-1;i>=0;i--){
+		sf::ConvexShape convex;
+		convex.setPointCount(this->bullets_e[i]->verticescount);
+		for(int j=0;j<this->bullets_e[i]->verticescount;j++){
+			convex.setPoint(j,sf::Vector2f(this->bullets_e[i]->vertx[j],this->bullets_e[i]->verty[j]));
+		}
+		convex.setPosition(this->bullets_e[i]->x,this->bullets_e[i]->y);
+		window->draw(convex);
+	}*/
+	
+	//-----------------------------------------------------
 	window->draw(*this->player);
 	for(int i=this->bullets.size()-1;i>=0;i--){
 		window->draw(*this->bullets[i]);
@@ -174,17 +192,21 @@ void GameScene::DrawObjs(sf::RenderWindow* window){
 	for(int i=this->fighters.size()-1;i>=0;i--){
 		window->draw(*this->fighters[i]);
 	}
-	this->draw_score(window);
+	this->draw_text(window);
 	if(this->paused){
 		window->draw(this->text_pause);
 	}
 }
-void GameScene::draw_score(sf::RenderWindow* window){
+void GameScene::draw_text(sf::RenderWindow* window){
 	std::ostringstream os;
 	os<<"Score:";
 	os<<this->score;
 	this->text_score.setString(os.str());
 	window->draw(this->text_score);
+	std::string s="";
+	wchar_t* hearts[]={L"",L"❤",L"❤❤",L"❤❤❤"};
+	this->text_life.setString(hearts[this->player->getLife()]);
+	window->draw(this->text_life);
 }
 
 

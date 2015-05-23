@@ -45,6 +45,7 @@ class Fighter:public sf::Sprite,public HitTestable{
 		Fighter(int type);
 		virtual ~Fighter();
 		virtual void initVertices();
+		int getLife();
 		void setVx(double vx);
 		void setVy(double vy);
 		void moveTo(double x,double y); //Hyper-distance interaction
@@ -58,6 +59,7 @@ class Fighter:public sf::Sprite,public HitTestable{
 		void AcellarateY(float r);
 		void Stop();
 		int isDestroyed();
+		int isKilled();
 		void fire(WeaponInterface* wi);
 		virtual void destroy();
 		virtual void ffire(WeaponInterface* wi);//firing more than one bullets
