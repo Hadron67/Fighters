@@ -1,10 +1,12 @@
 #ifndef FIGHTER_HPP
 #define FIGHTER_HPP
-#define RES_DIR "./res/"
+#ifndef RES_DIR
+#define RES_DIR "./res"
+#endif
 #include<SFML/Graphics.hpp>
 #include "bullet.hpp"
 #include "hitTestable.hpp"
-#include "weaponinterface.hpp"
+#include "gameeventlistener.hpp"
 struct fighter_Properties{
 	int group;
 	int life;
@@ -24,7 +26,6 @@ class Fighter:public sf::Sprite,public HitTestable{
 		double destroy_interval_time;
 		int group;
 		int destroyed;
-		static sf::Texture* tex;
 		sf::Clock clock;
 		sf::Clock clock_destroy;
 		int checkDestroying();
@@ -60,11 +61,11 @@ class Fighter:public sf::Sprite,public HitTestable{
 		void Stop();
 		int isDestroyed();
 		int isKilled();
-		void fire(WeaponInterface* wi);
+		void fire(GameEventListener* wi);
 		virtual void destroy();
-		virtual void ffire(WeaponInterface* wi);//firing more than one bullets
+		virtual void ffire(GameEventListener* wi);//firing more than one bullets
 		
-		virtual void AimAndFire(Fighter* target,WeaponInterface* wi); //for Enemies
+		virtual void AimAndFire(Fighter* target,GameEventListener* wi); //for Enemies
 		virtual void react(double dt);
 		virtual void hit(Bullet* b);
 		friend class GameScene;

@@ -1,7 +1,8 @@
 #include "fighter.hpp"
+#include "resources.hpp"
 #include <math.h>
 #include<iostream>
-sf::Texture* Fighter::tex=NULL;
+
 Fighter::Fighter(int group,double x=0,double y=0,double height=10,double width=10,double ax=0.1,double ay=0.1,double bullet_v=2,int which=1){
 	
 	sf::RectangleShape(sf::Vector2f(width, height));
@@ -12,11 +13,8 @@ Fighter::Fighter(int group,double x=0,double y=0,double height=10,double width=1
 	this->width=width;
 	this->ax=ax;
 	this->ay=ay;
-	if(Fighter::tex==NULL){
-		Fighter::tex=new sf::Texture();
-		Fighter::tex->loadFromFile(RES_DIR "/img/shoot.png");
-	}
-	this->setTexture(*Fighter::tex);
+	ResourceStore::loadTexture();
+	this->setTexture(*ResourceStore::shoot);
 	this->setTextureRect(sf::IntRect(0, 100,width, height));
 	this->destroyed=0;
 	this->killed=0;
@@ -37,11 +35,8 @@ Fighter::Fighter(struct fighter_Properties* p){
 	this->ax= p->ax;
 	this->ay= p->ay;
 	this->bullet_v=p->bullet_v;
-	if(Fighter::tex==NULL){
-		Fighter::tex=new sf::Texture();
-		Fighter::tex->loadFromFile(RES_DIR "/img/shoot.png");
-	}
-	this->setTexture(*Fighter::tex);
+	ResourceStore::loadTexture();
+	this->setTexture(*ResourceStore::shoot);
 	this->setTextureRect(sf::IntRect( p->x0[0], p->y0[0], p->width,  p->height));
 	this->initVertices();
 	this->destroyed=0;
@@ -61,7 +56,7 @@ Fighter::Fighter(struct fighter_Properties* p){
 Fighter::Fighter(int type){
 	static struct fighter_Properties p[]={
 		//player
-		{0,3,126,102,{0,165,165,330,330,432,10000},{99,360,234,624,498,624,10000},0.05,0.05,4,0.1},
+		{0,5,126,102,{0,165,165,330,330,432,10000},{99,360,234,624,498,624,10000},0.05,0.05,4,0.1},
 		//enermies
 		{1,3,99,69,{0,432,534,603,672,741,10000},{0,525,655,655,653,653,10000},0.01,0.01,2,2},
 		{1,1,43,57,{534,267,873,267,930,10000},{612,347,697,296,697,10000},0.03,0.03,2,2},
@@ -140,18 +135,18 @@ int Fighter::checkDestroying(){
 		this->destroy();
 	}
 }
-void Fighter::fire(WeaponInterface* wi){
+void Fighter::fire(GameEventListener* wi){
 	if(this->clock_fire.getElapsedTime().asSeconds()>this->bullet_t){
 		this->ffire(wi);
 	}
 	
 }
-void Fighter::ffire(WeaponInterface* wi){
+void Fighter::ffire(GameEventListener* wi){
 	this->clock_fire.restart();
 	Bullet* b=new Bullet(1);
 	b->setVelocity(this->vx,this->vy-this->bullet_v);
 	b->moveTo(this->x,this->y);
-	wi->FireBullet(b);
+	wi->onFireBullet(b);
 }
 void Fighter::hit(Bullet* b){
 	this->life-=b->getLifeKill();
@@ -164,14 +159,14 @@ int Fighter::isDestroyed(){
 	return this->destroyed;
 	std::cout<<this->destroyed<<std::endl;
 }
-void Fighter::AimAndFire(Fighter* target,WeaponInterface* wi){
+void Fighter::AimAndFire(Fighter* target,GameEventListener* wi){
 	if(this->clock_fire.getElapsedTime().asSeconds()>this->bullet_t){
 		this->clock_fire.restart();
 		Bullet* b=new Bullet(2);
 		b->moveTo(this->x,this->y);
 		double d=sqrt((target->x-this->x)*(target->x-this->x)+(target->y-this->y)*(target->y-this->y));
 		b->setVelocity((target->x-this->x)/d*this->bullet_v,(target->y-this->y)/d*this->bullet_v);
-		wi->FireBullet_e(b);
+		wi->onEnemyFireBullet(b);
 	}
 }
 void Fighter::destroy(){

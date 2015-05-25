@@ -18,7 +18,6 @@ class Bullet:public sf::Sprite,public HitTestable{
 	private:
 		double x,y,vx,vy,height,width;
 		int life_kill;
-		static sf::Texture* tex;
 	public:
 		Bullet(struct bullet_Properties* b);
 		Bullet(int type);

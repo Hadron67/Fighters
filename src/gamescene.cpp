@@ -35,23 +35,25 @@ GameScene::~GameScene(){
 	delete this->player;
 }
 void GameScene::add_enemy(){
-	int x=rand()%30000;
+	int x=rand()%25000;
 	int x1=rand()%((int)this->width);
-	if(x>29996){
-		Fighter* e;
-		if(x==29997){
+	//if(x>24996){
+		Fighter* e=NULL;
+		if(x==19997){
 			e=new Enemy1();
 		}
-		else if(x==29998){
+		else if(x==19998){
 			e=new Enemy3();
 		}
-		else if(x==29999){
+		else if(x==19999){
 			e=new Enemy2();
 		}
-		e->moveTo(x1,-e->height/2+1);
-		e->AcellarateY(1);
-		this->fighters.push_back(e);
-	}
+		if(e!=NULL){			
+			e->moveTo(x1,-e->height/2+1);
+			e->AcellarateY(1);
+			this->fighters.push_back(e);
+		}
+	//}
 }
 void GameScene::check_hits(){
 	for(int i=this->bullets.size()-1;i>=0;i--){
@@ -162,10 +164,10 @@ void GameScene::player1_stop(){
 void GameScene::player1_fire(){
 	this->player->fire(this);
 }
-void GameScene::FireBullet(Bullet* b){
+void GameScene::onFireBullet(Bullet* b){
 	this->bullets.push_back(b);
 }
-void GameScene::FireBullet_e(Bullet* b){
+void GameScene::onEnemyFireBullet(Bullet* b){
 	this->bullets_e.push_back(b);
 }
 void GameScene::DrawObjs(sf::RenderWindow* window){
@@ -204,7 +206,7 @@ void GameScene::draw_text(sf::RenderWindow* window){
 	this->text_score.setString(os.str());
 	window->draw(this->text_score);
 	std::string s="";
-	wchar_t* hearts[]={L"",L"❤",L"❤❤",L"❤❤❤"};
+	wchar_t* hearts[]={L"",L"❤",L"❤❤",L"❤❤❤",L"❤❤❤❤",L"❤❤❤❤❤"};
 	this->text_life.setString(hearts[this->player->getLife()]);
 	window->draw(this->text_life);
 }

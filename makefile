@@ -4,7 +4,7 @@ LDFLAGS+=-lsfml-graphics -lsfml-window -lsfml-system
 
 OBJ+=main.o
 LIBOBJ+=./src/src.a
-
+all:main
 main:$(OBJ) $(LIBOBJ)
 	$(CXX) $(OBJ) $(LIBOBJ) -o $@ $(LDFLAGS)  
 main.o:main.cpp

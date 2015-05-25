@@ -3,14 +3,14 @@
 #define GAMESCENE_HPP
 #include<vector>
 #include<math.h>
-#include "weaponinterface.hpp"
+#include "gameeventlistener.hpp"
 #include "fighter.hpp"
 #include "bullet.hpp"
 #include "fighter1.hpp"
 #include "enemy1.hpp"
 #include "enemy2.hpp"
 #include "enemy3.hpp"
-class GameScene:public WeaponInterface{
+class GameScene:public GameEventListener{
 	private:
 		double width,height;
 		std::vector<Fighter*> fighters;
@@ -48,8 +48,8 @@ class GameScene:public WeaponInterface{
 		void resume();
 		void DrawObjs(sf::RenderWindow* window);
 		//implementations
-		void FireBullet(Bullet* b);
-		void FireBullet_e(Bullet* b);
+		void onFireBullet(Bullet* b);
+		void onEnemyFireBullet(Bullet* b);
 		//friend class MainWindow;
 };
 #endif

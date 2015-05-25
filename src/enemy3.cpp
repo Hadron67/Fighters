@@ -32,7 +32,7 @@ void Enemy3::react(double dt){
 		this->setTextureRect(sf::IntRect(this->x0[this->whichFrame],this->y0[this->whichFrame],this->width,this->height));
 	}
 }
-void Enemy3::AimAndFire(Fighter* target,WeaponInterface* wi){
+void Enemy3::AimAndFire(Fighter* target,GameEventListener* wi){
 	if(this->clock_fire.getElapsedTime().asSeconds()>this->bullet_t){
 		this->Fighter::AimAndFire(target,wi);
 		this->clock_fire.restart();
@@ -48,10 +48,10 @@ void Enemy3::AimAndFire(Fighter* target,WeaponInterface* wi){
 		b4->setVelocity(-this->bullet_v,0);
 		b2->setVelocity(this->bullet_v/1.414,this->bullet_v/1.414);
 		b3->setVelocity(-this->bullet_v/1.414,this->bullet_v/1.414);
-		wi->FireBullet_e(b1);
-		wi->FireBullet_e(b2);
-		wi->FireBullet_e(b3);
-		wi->FireBullet_e(b4);
+		wi->onEnemyFireBullet(b1);
+		wi->onEnemyFireBullet(b2);
+		wi->onEnemyFireBullet(b3);
+		wi->onEnemyFireBullet(b4);
 		
 	}
 }

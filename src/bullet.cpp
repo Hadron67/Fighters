@@ -1,4 +1,5 @@
 #include "bullet.hpp"
+#include "resources.hpp"
 #include<math.h>
 #define PI 3.1415926
 static double arctan(double x,double y){
@@ -16,17 +17,13 @@ static double arctan(double x,double y){
 		return 2*PI+theta;
 	}
 }
-sf::Texture* Bullet::tex=NULL;
 Bullet::Bullet(struct bullet_Properties* b){
 	this->x=this->y=0;
 	this->height=b->height;
 	this->width=b->width;
 	this->life_kill=b->life_kill;
-	if(Bullet::tex==NULL){
-		Bullet::tex=new sf::Texture();
-		Bullet::tex->loadFromFile(RES_DIR "/img/shoot.png");
-	}
-	this->setTexture(*Bullet::tex);
+	ResourceStore::loadTexture();
+	this->setTexture(*ResourceStore::shoot);
 	this->setTextureRect(sf::IntRect( b->x0, b->y0, b->width,  b->height));
 	//for hitTest
 	this->initVertices();

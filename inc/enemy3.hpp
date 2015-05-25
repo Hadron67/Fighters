@@ -9,6 +9,6 @@ class Enemy3:public Fighter{
 		Enemy3();
 		virtual ~Enemy3();
 		virtual void react(double dt);
-		virtual void AimAndFire(Fighter* target,WeaponInterface* wi);
+		virtual void AimAndFire(Fighter* target,GameEventListener* wi);
 };
 #endif

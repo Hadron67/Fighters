@@ -3,7 +3,7 @@
 using namespace sf;
 MainWindow::MainWindow():RenderWindow(VideoMode(450,600),"Experiment"),GameScene(450,600){
 	sf::Texture* texture=new sf::Texture();
-	if(texture->loadFromFile(RES_DIR "img/background.png")){
+	if(texture->loadFromFile(RES_DIR "/img/background.png")){
 		this->sp_bg.setTexture(*texture);
 	}
 	this->keystate=0;
@@ -40,7 +40,6 @@ void MainWindow::MainLoop(){
 	}
 }
 void MainWindow::check_operates(double dt){
-	int ismoving=0;
 	this->player1_stop();
 	if(Keyboard::isKeyPressed(Keyboard::Left)){
 		this->player1_move_left(dt);

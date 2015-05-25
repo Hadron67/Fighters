@@ -7,6 +7,7 @@ Fighter1::~Fighter1(){
 }
 Fighter1* Fighter1::setWeaponType(WeaponType wt){
 	this->wt=wt;
+	return this;
 }
 void Fighter1::react(double dt){
 	if(!this->killed){		
@@ -23,7 +24,7 @@ void Fighter1::destroy(){
 	//TODO:add destroying animation
 	this->Fighter::destroy();
 }
-void Fighter1::ffire(WeaponInterface* wi){
+void Fighter1::ffire(GameEventListener* wi){
 	this->Fighter::ffire(wi);
 }
 void Fighter1::initVertices(){
