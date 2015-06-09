@@ -1,11 +1,10 @@
 #ifndef FIGHTER_HPP
 #define FIGHTER_HPP
-#ifndef RES_DIR
-#define RES_DIR "./res"
-#endif
+
 #include<SFML/Graphics.hpp>
 #include "bullet.hpp"
 #include "hitTestable.hpp"
+#include "wbox.hpp"
 #include "gameeventlistener.hpp"
 struct fighter_Properties{
 	int group;
@@ -30,6 +29,7 @@ class Fighter:public sf::Sprite,public HitTestable{
 		sf::Clock clock_destroy;
 		int checkDestroying();
 	protected:
+		GameEventListener* listener;
 		double bullet_v;
 		double ax,ay;
 		double cax,cay;
@@ -46,9 +46,11 @@ class Fighter:public sf::Sprite,public HitTestable{
 		Fighter(int type);
 		virtual ~Fighter();
 		virtual void initVertices();
+		void setGameEventListener(GameEventListener* listener);
 		int getLife();
 		void setVx(double vx);
 		void setVy(double vy);
+		void kill(){this->killed=1;}
 		void moveTo(double x,double y); //Hyper-distance interaction
 		double getVx();
 		double getHeight();
@@ -61,11 +63,11 @@ class Fighter:public sf::Sprite,public HitTestable{
 		void Stop();
 		int isDestroyed();
 		int isKilled();
-		void fire(GameEventListener* wi);
+		void fire();
 		virtual void destroy();
-		virtual void ffire(GameEventListener* wi);//firing more than one bullets
+		virtual void ffire();//firing more than one bullets
 		
-		virtual void AimAndFire(Fighter* target,GameEventListener* wi); //for Enemies
+		virtual void AimAndFire(Fighter* target); //for Enemies
 		virtual void react(double dt);
 		virtual void hit(Bullet* b);
 		friend class GameScene;

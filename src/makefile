@@ -1,7 +1,7 @@
 #makefile in ./src
 INC+=../inc
 CFLAGS+=-Wall -g -I$(INC) -ggdb
-OBJ+=MainWindow.o fighter.o gamescene.o bullet.o packparser.o fighter1.o enemy1.o hitTestable.o enemy2.o enemy3.o resources.o
+OBJ+=MainWindow.o fighter.o gamescene.o bullet.o packparser.o fighter1.o enemy1.o hitTestable.o enemy2.o enemy3.o resources.o wbox.o
 all:src.a
 src.a:$(OBJ)
 	$(AR) rc $@ $(OBJ)
@@ -26,6 +26,8 @@ enemy2.o:enemy2.cpp $(INC)/enemy2.hpp $(INC)/fighter.hpp
 enemy3.o:enemy3.cpp $(INC)/enemy3.hpp $(INC)/fighter.hpp
 	$(CXX) $(CFLAGS) -c -o $@ $<
 resources.o:resources.cpp $(INC)/resources.hpp
+	$(CXX) $(CFLAGS) -c -o $@ $<
+wbox.o:wbox.cpp $(INC)/wbox.hpp
 	$(CXX) $(CFLAGS) -c -o $@ $<
 clean:
 	-rm $(OBJ) src.a

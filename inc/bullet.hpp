@@ -21,6 +21,7 @@ class Bullet:public sf::Sprite,public HitTestable{
 	public:
 		Bullet(struct bullet_Properties* b);
 		Bullet(int type);
+		double getWidth(){return this->width;}
 		virtual ~Bullet();
 		virtual void initVertices();
 		Bullet* moveTo(double x,double y);

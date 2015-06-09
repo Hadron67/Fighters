@@ -20,14 +20,7 @@ void MainWindow::MainLoop(){
 				this->close();
 			}
 			if(event.type==Event::KeyPressed){
-				if(event.key.code==sf::Keyboard::Return){
-					if(this->ispaused()){
-						this->resume();
-					}
-					else{
-						this->pause();
-					}
-				}
+				this->keypress(event.key.code);
 			}
 		}
 		double t=clock.restart().asSeconds()*100;

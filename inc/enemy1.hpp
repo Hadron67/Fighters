@@ -5,5 +5,6 @@ class Enemy1:public Fighter{
 	public:
 		Enemy1();
 		virtual ~Enemy1();
+		virtual void destroy();
 };
 #endif

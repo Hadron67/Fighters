@@ -16,6 +16,7 @@ static double arctan(double x,double y){
 	else if(x>=0&&y<0){
 		return 2*PI+theta;
 	}
+	return theta;
 }
 Bullet::Bullet(struct bullet_Properties* b){
 	this->x=this->y=0;

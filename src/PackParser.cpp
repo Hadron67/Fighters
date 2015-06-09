@@ -12,5 +12,5 @@ PackParser::~PackParser(){
 	
 }
 int PackParser::getX0(std::string& s){
-	
+	return 0;
 }
