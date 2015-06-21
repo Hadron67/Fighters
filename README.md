@@ -6,5 +6,14 @@ Different from other fighter games,this game has taken some physical effects int
 Use the four arrow keys to control the plane,space to fire,b to use bomb,enter to pause game.
 # Technical details
 ## classes
-this game contains the following classes
+this game mainly contains the following classes:
+**Fighter**
+**Enemy**
+**bullet**
+**hitTestable**
+*used to test whether to fighters are hitted*
+**game scene**
+**GameEventListener(interface)**
+## Game period
+this game has a main loop,at every loop,the function react() updates the posotions of every planes and bullet,and do others,such ad hit test.
 
