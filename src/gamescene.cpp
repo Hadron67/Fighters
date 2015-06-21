@@ -327,6 +327,7 @@ void GameScene::onBombExplose(){
 	DELETEALL(this->wboxes);
 	this->bomb_explosing=1;
 	this->bomb_alpha=255;*/
+	DELETEALL(this->bullets_e);
 	for(int i=0;i<300;i++){
 		Bullet* b=new Bullet(1);
 		b->moveTo(this->player->x,this->player->y);

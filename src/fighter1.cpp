@@ -108,7 +108,9 @@ void Fighter1::ReleaseBomb(){
 }
 void Fighter1::onTouchBullet(){
 	if(this->wt==DoublePentaScatter){
-		this->life++;
+		if(this->life<=5){
+			this->life++;
+		}
 	}
 	else {
 		int t=(int)this->wt;
