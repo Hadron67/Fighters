@@ -21,7 +21,6 @@ struct fighter_Properties{
 class GameScene;
 class Fighter:public sf::Sprite,public HitTestable{
 	private :
-		int life;
 		double destroy_interval_time;
 		int group;
 		int destroyed;
@@ -29,6 +28,7 @@ class Fighter:public sf::Sprite,public HitTestable{
 		sf::Clock clock_destroy;
 		int checkDestroying();
 	protected:
+		int life;
 		GameEventListener* listener;
 		double bullet_v;
 		double ax,ay;

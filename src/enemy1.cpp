@@ -12,7 +12,7 @@ Enemy1::~Enemy1(){
 void Enemy1::destroy(){
 	this->Fighter::destroy();
 	int t=rand()%20;
-	if(this->isDestroyed()&&t<15){
+	if(this->isDestroyed()&&t<10){
 		int select=rand()%2;
 		//select=1;
 		Wbox* b;

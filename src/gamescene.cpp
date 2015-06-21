@@ -10,7 +10,7 @@
 				(a)[i]->kill(); \
 			   }
 sf::Font* GameScene::font=NULL;
-static int probs[]={20000,15000,10000,8000,7000,5000,4000,3000};
+static int probs[]={40000,30000,25000,10000,8000,7000,5000,3000};
 GameScene::GameScene(double width,double height){
 	this->height=height;
 	this->width=width;
@@ -81,13 +81,13 @@ void GameScene::add_enemy(){
 	int x1=rand()%((int)this->width);
 	//if(x>24996){
 		Fighter* e=NULL;
-		if(x==0){
+		if(x<=5){
 			e=new Enemy1();
 		}
-		else if(x==1){
+		else if(x>5&&x<=10){
 			e=new Enemy3();
 		}
-		else if(x==2){
+		else if(x==21){
 			e=new Enemy2();
 		}
 		if(e!=NULL){
@@ -148,12 +148,12 @@ void GameScene::react(double dt){
 	}
 	this->check_ranges();
 	this->check_hits();
-	if(this->clock_leveltimer.getElapsedTime().asSeconds()>20&&!this->player->isKilled()&&!this->paused){
+	if(this->clock_leveltimer.getElapsedTime().asSeconds()>60&&!this->player->isKilled()&&!this->paused){
 		this->clock_leveltimer.restart();
 		this->level++;
 		this->level_isshowing=1;
 		this->clock_levelhint.restart();
-		std::cout<<"next level"<<std::endl;
+		//std::cout<<"next level"<<std::endl;
 	}
 }
 void GameScene::restart(){
@@ -321,12 +321,18 @@ void GameScene::onWboxApear(Wbox* b){
 	this->wboxes.push_back(b);
 }
 void GameScene::onBombExplose(){
-	DESTROYALL(this->fighters);
+	/*DESTROYALL(this->fighters);
 	DELETEALL(this->bullets);
 	DELETEALL(this->bullets_e);
 	DELETEALL(this->wboxes);
 	this->bomb_explosing=1;
-	this->bomb_alpha=255;
+	this->bomb_alpha=255;*/
+	for(int i=0;i<300;i++){
+		Bullet* b=new Bullet(1);
+		b->moveTo(this->player->x,this->player->y);
+		b->setVelocity(this->player->bullet_v*cos(2*3.14/300*i),this->player->bullet_v*sin(2*3.14/300*i));
+		this->bullets.push_back(b);
+	}
 }
 void GameScene::draw_text(sf::RenderWindow* window){
 	static std::string levels[]={"un","deux","trois","quatre","cinq","six","sept","neuf"};

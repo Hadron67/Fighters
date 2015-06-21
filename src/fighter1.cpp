@@ -107,13 +107,19 @@ void Fighter1::ReleaseBomb(){
 	}
 }
 void Fighter1::onTouchBullet(){
-	int t=(int)this->wt;
-	t++;
-	this->wt=(WeaponType)t;
+	if(this->wt==DoublePentaScatter){
+		this->life++;
+	}
+	else {
+		int t=(int)this->wt;
+		t++;
+		this->wt=(WeaponType)t;
+	}
 	//std::cout<<"it works"<<std::endl;
 }
 void Fighter1::onTouchBomb(){
 	if(this->bombcount<5){
 		this->bombcount++;
 	}
+	
 }
